@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 10px;
+            width: 250px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px auto;
+            width: 60%;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        img {
+            border-radius: 5px;
+            width: 200px;
+            height: auto;
+            margin: 10px 0;
+        }
+        p {
+            text-align: left;
+            width: 80%;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <h1>Find Recipes by Ingredient</h1>
+    <form method="POST">
+        <input type="text" name="recipe_name" placeholder="Enter recipe name" required>
+        <button type="submit">Search</button>
+    </form>
+    
+
+    {% if recipes %}
+        <h2>Recipe Results</h2>
+        <ul>
+            {% for recipe in recipes %}
+                <li>
+                    <h3>{{ recipe.title }}</h3>
+                    <img src="{{ recipe.image }}" alt="{{ recipe.title }}"><br>
+                    <strong>Instructions:</strong>
+                    <p>{{ recipe.instructions | safe }}</p>  <!-- FIXED: Properly renders HTML -->
+                </li>
+            {% endfor %}
+        </ul>
+    {% elif error_message %}
+        <p>{{ error_message }}</p>
+    {% endif %}
+</body>
+</html>
+
+
+
